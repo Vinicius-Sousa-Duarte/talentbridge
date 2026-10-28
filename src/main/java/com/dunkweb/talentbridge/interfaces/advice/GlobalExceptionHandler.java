@@ -3,6 +3,8 @@ package com.dunkweb.talentbridge.interfaces.advice;
 import com.dunkweb.talentbridge.domain.exception.BusinessException;
 import com.dunkweb.talentbridge.domain.exception.ResourceNotFoundException;
 import com.dunkweb.talentbridge.domain.exception.ValidationException;
+import com.dunkweb.talentbridge.infrastructure.discovery.playwright.DiscoveryFailureType;
+import com.dunkweb.talentbridge.infrastructure.discovery.playwright.DiscoveryExecutionException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +48,28 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 ex);
         return buildResponse(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage(), request.getRequestURI(), List.of());
+    }
+
+    @ExceptionHandler(DiscoveryExecutionException.class)
+    public ResponseEntity<ApiErrorResponse> handleDiscoveryExecution(
+            DiscoveryExecutionException ex,
+            HttpServletRequest request
+    ) {
+        String message = "Falha na execucao da discovery: " + ex.getFailureType();
+        if (ex.getFailureType() == DiscoveryFailureType.CAPTCHA) {
+            message = "CAPTCHA detectado no LinkedIn. Resolva o desafio manualmente no navegador e tente novamente.";
+        }
+
+        log.warn("{} Discovery execution failure requestId={} path={} exception={} failureType={} message={}",
+                ERROR,
+                MDC.get(REQUEST_ID),
+                request.getRequestURI(),
+                ex.getClass().getSimpleName(),
+                ex.getFailureType(),
+                ex.getMessage(),
+                ex);
+
+        return buildResponse(HttpStatus.UNPROCESSABLE_ENTITY, message, request.getRequestURI(), List.of());
     }
 
     @ExceptionHandler(ValidationException.class)

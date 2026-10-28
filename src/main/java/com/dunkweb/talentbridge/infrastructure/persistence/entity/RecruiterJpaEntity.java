@@ -37,16 +37,16 @@ public class RecruiterJpaEntity {
     @Column(nullable = false, length = 160)
     private String name;
 
-    @Column(nullable = false, length = 160)
+    @Column(length = 160)
     private String position;
 
-    @Column(nullable = false, length = 160)
+    @Column(length = 160)
     private String company;
 
     @Column(length = 160)
     private String location;
 
-    @Column(name = "linkedin_url", nullable = false, length = 500)
+    @Column(name = "linkedin_url", length = 500)
     private String linkedinUrl;
 
     @Column(length = 500)

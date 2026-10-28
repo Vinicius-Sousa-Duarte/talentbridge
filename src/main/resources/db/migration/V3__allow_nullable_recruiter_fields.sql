@@ -1,0 +1,3 @@
+ALTER TABLE recruiters ALTER COLUMN position DROP NOT NULL;
+ALTER TABLE recruiters ALTER COLUMN company DROP NOT NULL;
+ALTER TABLE recruiters ALTER COLUMN linkedin_url DROP NOT NULL;

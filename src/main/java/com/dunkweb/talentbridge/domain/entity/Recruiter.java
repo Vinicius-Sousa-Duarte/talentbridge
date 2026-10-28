@@ -41,17 +41,14 @@ public class Recruiter {
             Integer score
     ) {
         validateRequired(name, "Nome");
-        validateRequired(position, "Cargo");
-        validateRequired(company, "Empresa");
-        validateRequired(linkedinUrl, "Linkedin URL");
 
         return Recruiter.builder()
                 .id(UUID.randomUUID())
                 .name(name.trim())
-                .position(position.trim())
-                .company(company.trim())
+                .position(position == null ? null : position.trim())
+                .company(company == null ? null : company.trim())
                 .location(location == null ? null : location.trim())
-                .linkedinUrl(linkedinUrl.trim())
+                .linkedinUrl(linkedinUrl == null ? null : linkedinUrl.trim())
                 .headline(headline == null ? null : headline.trim())
                 .connectionsCount(connectionsCount)
                 .score(score == null ? 0 : score)

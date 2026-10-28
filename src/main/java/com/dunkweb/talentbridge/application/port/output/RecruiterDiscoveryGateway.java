@@ -1,10 +1,9 @@
 package com.dunkweb.talentbridge.application.port.output;
 
-import com.dunkweb.talentbridge.domain.valueobject.RecruiterProfile;
-
-import java.util.List;
+import com.dunkweb.talentbridge.domain.entity.UserProfile;
+import java.util.UUID;
 
 public interface RecruiterDiscoveryGateway {
 
-    List<RecruiterProfile> discoverRecruiters();
+    DiscoveryExtractionResult discoverRecruiters(UserProfile profile, int desiredProfiles, UUID jobId);
 }

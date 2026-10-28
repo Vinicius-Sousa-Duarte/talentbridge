@@ -30,7 +30,7 @@ public class KeywordRepositoryAdapter implements KeywordRepository {
 
     @Override
     public List<Keyword> findAll() {
-        return repository.findAll().stream().map(mapper::toDomain).toList();
+        return repository.findAllByOrderByCreatedAtAsc().stream().map(mapper::toDomain).toList();
     }
 
     @Override

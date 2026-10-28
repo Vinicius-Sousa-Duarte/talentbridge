@@ -43,6 +43,22 @@ public class RecruiterRepositoryAdapter implements RecruiterRepository {
     }
 
     @Override
+    public Optional<Recruiter> findByLinkedinUrl(String linkedinUrl) {
+        if (linkedinUrl == null || linkedinUrl.isBlank()) {
+            return Optional.empty();
+        }
+        return repository.findFirstByLinkedinUrlIgnoreCase(linkedinUrl).map(mapper::toDomain);
+    }
+
+    @Override
+    public Optional<Recruiter> findByNameAndCompany(String name, String company) {
+        if (name == null || name.isBlank() || company == null || company.isBlank()) {
+            return Optional.empty();
+        }
+        return repository.findFirstByNameIgnoreCaseAndCompanyIgnoreCase(name, company).map(mapper::toDomain);
+    }
+
+    @Override
     public List<Recruiter> findAll() {
         return repository.findAll().stream().map(mapper::toDomain).toList();
     }

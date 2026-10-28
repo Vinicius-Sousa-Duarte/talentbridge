@@ -36,3 +36,17 @@ logging:
   level:
     root: INFO
     "[com.dunkweb.talentbridge]": DEBUG
+
+talentbridge:
+  discovery:
+    enabled: true
+    provider: playwright
+    headless: false
+    page-timeout: 30000
+    max-pages-per-search: 10
+    cooldown-minutes: 30
+    min-delay-seconds: 2
+    max-delay-seconds: 7
+    max-profiles-per-execution: 100
+    max-profiles-per-day: 150
+    max-queries-per-execution: 20

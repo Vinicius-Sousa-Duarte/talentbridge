@@ -3,6 +3,7 @@ package com.dunkweb.talentbridge.application.usecase;
 import com.dunkweb.talentbridge.application.dto.RecruiterDiscoveryResponse;
 import com.dunkweb.talentbridge.application.mapper.RecruiterDtoMapper;
 import com.dunkweb.talentbridge.application.port.input.SearchRecruitersUseCase;
+import com.dunkweb.talentbridge.application.port.output.DiscoveryExtractionResult;
 import com.dunkweb.talentbridge.application.port.output.RecruiterDiscoveryGateway;
 import com.dunkweb.talentbridge.application.port.output.UserProfileRepository;
 import com.dunkweb.talentbridge.domain.entity.UserProfile;
@@ -20,6 +21,8 @@ import static com.dunkweb.talentbridge.shared.constants.LogConstants.USE_CASE;
 @RequiredArgsConstructor
 public class SearchRecruitersUseCaseImpl implements SearchRecruitersUseCase {
 
+    private static final int PREVIEW_LIMIT = 25;
+
     private final RecruiterDiscoveryGateway recruiterDiscoveryGateway;
     private final RecruiterDtoMapper recruiterDtoMapper;
     private final UserProfileRepository userProfileRepository;
@@ -34,10 +37,12 @@ public class SearchRecruitersUseCaseImpl implements SearchRecruitersUseCase {
             USE_CASE,
             activeProfile != null);
 
-        List<RecruiterDiscoveryResponse> discovered = recruiterDiscoveryGateway.discoverRecruiters()
-                .stream()
+        DiscoveryExtractionResult extractionResult = recruiterDiscoveryGateway
+                .discoverRecruiters(activeProfile, PREVIEW_LIMIT, null);
+
+        List<RecruiterDiscoveryResponse> discovered = extractionResult.profiles().stream()
                 .map(profile -> {
-                int score = recruiterScoringEngine.calculate(activeProfile, profile.headline(), profile.position(), null);
+                    int score = recruiterScoringEngine.calculate(activeProfile, profile.headline(), profile.position(), null);
                     return recruiterDtoMapper.toDiscoveryResponse(profile, score);
                 })
                 .toList();

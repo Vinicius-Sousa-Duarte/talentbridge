@@ -12,6 +12,10 @@ public interface RecruiterRepository {
 
     Optional<Recruiter> findById(UUID id);
 
+    Optional<Recruiter> findByLinkedinUrl(String linkedinUrl);
+
+    Optional<Recruiter> findByNameAndCompany(String name, String company);
+
     List<Recruiter> findAll();
 
     void deleteById(UUID id);

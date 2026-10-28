@@ -1,0 +1,2 @@
+ALTER TABLE discovery_jobs ADD COLUMN pages_visited INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE discovery_jobs ADD COLUMN queries_executed INTEGER NOT NULL DEFAULT 0;
