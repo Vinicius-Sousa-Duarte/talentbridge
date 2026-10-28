@@ -1,0 +1,25 @@
+${AnsiColor.BRIGHT_BLUE}
+
+╔══════════════════════════════════════════════════════╗
+║                                                      ║
+║   ████████╗ █████╗ ██╗     ███████╗███╗   ██╗████████╗ ║
+║   ╚══██╔══╝██╔══██╗██║     ██╔════╝████╗  ██║╚══██╔══╝ ║
+║      ██║   ███████║██║     █████╗  ██╔██╗ ██║   ██║    ║
+║      ██║   ██╔══██║██║     ██╔══╝  ██║╚██╗██║   ██║    ║
+║      ██║   ██║  ██║███████╗███████╗██║ ╚████║   ██║    ║
+║      ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝   ╚═╝    ║
+║                                                      ║
+║                    B R I D G E                       ║
+║                                                      ║
+╚══════════════════════════════════════════════════════╝
+
+${AnsiStyle.BOLD}Smart Recruiter Discovery Platform${AnsiStyle.NORMAL}
+
+Construindo pontes entre profissionais e oportunidades.
+
+${AnsiColor.BRIGHT_BLACK}
+Application : ${spring.application.name:talent-bridge}
+Version     : 1.0.0
+Environment : ${SPRING_PROFILES_ACTIVE:local}
+Java        : ${java.version}
+${AnsiColor.DEFAULT}

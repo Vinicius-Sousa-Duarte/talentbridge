@@ -1,0 +1,208 @@
+{
+  "info": {
+    "name": "TalentBridge API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection para gerenciamento de recrutadores e keywords"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "recruiterId",
+      "value": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "key": "keywordId",
+      "value": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "key": "profileId",
+      "value": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Recruiters",
+      "item": [
+        {
+          "name": "Create Recruiter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/recruiters",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Souza\",\n  \"position\": \"Tech Recruiter\",\n  \"company\": \"Acme\",\n  \"location\": \"Sao Paulo\",\n  \"linkedinUrl\": \"https://www.linkedin.com/in/maria\",\n  \"headline\": \"Hiring Java and AWS engineers\",\n  \"connectionsCount\": 450\n}"
+            }
+          }
+        },
+        {
+          "name": "List Recruiters",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/recruiters"
+          }
+        },
+        {
+          "name": "Get Recruiter By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/recruiters/{{recruiterId}}"
+          }
+        },
+        {
+          "name": "Approve Recruiter",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/recruiters/{{recruiterId}}/approve"
+          }
+        },
+        {
+          "name": "Register Invite",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/recruiters/{{recruiterId}}/invite"
+          }
+        },
+        {
+          "name": "Register Connection",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/recruiters/{{recruiterId}}/connect"
+          }
+        },
+        {
+          "name": "Dismiss Recruiter",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/recruiters/{{recruiterId}}/dismiss"
+          }
+        },
+        {
+          "name": "Delete Recruiter",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/recruiters/{{recruiterId}}"
+          }
+        },
+        {
+          "name": "Discovery Mock",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/recruiters/discovery"
+          }
+        },
+        {
+          "name": "Recalculate Recruiter Scores",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/recruiters/recalculate-scores"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Profile",
+      "item": [
+        {
+          "name": "Create Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/profile",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"professionalTitle\": \"Senior Backend Developer\",\n  \"professionalSummary\": \"Java and AWS specialist\",\n  \"objectives\": [\n    \"SOLUTIONS_ARCHITECT\"\n  ],\n  \"skills\": [\n    {\n      \"skill\": \"Java\",\n      \"weight\": 10\n    },\n    {\n      \"skill\": \"AWS\",\n      \"weight\": 10\n    },\n    {\n      \"skill\": \"Spring Boot\",\n      \"weight\": 8\n    },\n    {\n      \"skill\": \"Microservices\",\n      \"weight\": 8\n    },\n    {\n      \"skill\": \"Kafka\",\n      \"weight\": 5\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/profile"
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/profile",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"professionalTitle\": \"Solutions Architect\",\n  \"professionalSummary\": \"Backend and cloud architecture specialist\",\n  \"objectives\": [\n    \"SOLUTIONS_ARCHITECT\",\n    \"CLOUD_ENGINEER\"\n  ],\n  \"skills\": [\n    {\n      \"skill\": \"Java\",\n      \"weight\": 10\n    },\n    {\n      \"skill\": \"AWS\",\n      \"weight\": 10\n    },\n    {\n      \"skill\": \"Spring Boot\",\n      \"weight\": 8\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Profile",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/profile"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Keywords",
+      "item": [
+        {
+          "name": "Create Keyword",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/keywords",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Java Recruiter\"\n}"
+            }
+          }
+        },
+        {
+          "name": "List Keywords",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/keywords"
+          }
+        },
+        {
+          "name": "Get Keyword By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/keywords/{{keywordId}}"
+          }
+        },
+        {
+          "name": "Delete Keyword",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/keywords/{{keywordId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
