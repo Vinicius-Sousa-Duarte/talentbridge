@@ -13,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -99,6 +100,28 @@ public class GlobalExceptionHandler {
 
         return buildResponse(HttpStatus.BAD_REQUEST, "Violacao de restricao.", request.getRequestURI(), details);
     }
+
+        @ExceptionHandler(ResponseStatusException.class)
+        public ResponseEntity<ApiErrorResponse> handleResponseStatusException(
+            ResponseStatusException ex,
+            HttpServletRequest request
+        ) {
+        HttpStatus status = HttpStatus.resolve(ex.getStatusCode().value());
+        HttpStatus safeStatus = status == null ? HttpStatus.INTERNAL_SERVER_ERROR : status;
+        String message = ex.getReason() == null || ex.getReason().isBlank()
+            ? safeStatus.getReasonPhrase()
+            : ex.getReason();
+
+        log.warn("{} Response status exception requestId={} path={} status={} message={}",
+            ERROR,
+            MDC.get(REQUEST_ID),
+            request.getRequestURI(),
+            safeStatus.value(),
+            message,
+            ex);
+
+        return buildResponse(safeStatus, message, request.getRequestURI(), List.of());
+        }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleGeneric(Exception ex, HttpServletRequest request) {

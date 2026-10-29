@@ -1,10 +1,8 @@
 package com.dunkweb.talentbridge.application.port.input;
 
-import com.dunkweb.talentbridge.application.dto.RecruiterResponse;
-
-import java.util.List;
+import com.dunkweb.talentbridge.application.dto.RecruiterPageResponse;
 
 public interface ListRecruitersUseCase {
 
-    List<RecruiterResponse> execute();
+    RecruiterPageResponse execute(Integer page, Integer size, String sort);
 }

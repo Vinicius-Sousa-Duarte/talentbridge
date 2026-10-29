@@ -4,6 +4,7 @@ import com.dunkweb.talentbridge.application.dto.CreateRecruiterRequest;
 import com.dunkweb.talentbridge.application.dto.RecruiterDiscoveryResponse;
 import com.dunkweb.talentbridge.application.dto.RecruiterResponse;
 import com.dunkweb.talentbridge.domain.entity.Recruiter;
+import com.dunkweb.talentbridge.domain.valueobject.discovery.RecruiterCandidate;
 import com.dunkweb.talentbridge.domain.valueobject.RecruiterProfile;
 import org.springframework.stereotype.Component;
 
@@ -50,6 +51,22 @@ public class RecruiterDtoMapper {
                 profile.linkedinUrl(),
                 profile.headline(),
                 profile.connectionsCount(),
+                score
+        );
+    }
+
+    public RecruiterDiscoveryResponse toDiscoveryResponse(RecruiterCandidate candidate) {
+        Object rawScore = candidate.normalizedFields().get("score");
+        Integer score = rawScore instanceof Number number ? number.intValue() : 0;
+
+        return new RecruiterDiscoveryResponse(
+                candidate.name(),
+                candidate.position(),
+                candidate.company(),
+                candidate.location(),
+                candidate.linkedinUrl(),
+                candidate.headline(),
+                null,
                 score
         );
     }
